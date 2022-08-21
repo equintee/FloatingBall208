@@ -42,12 +42,13 @@ public class fanController : MonoBehaviour
     
     private void blowAir()
     {
-        if (Physics.Raycast(ballRigidBody.position, Vector3.down, 10))
+        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit a, 10f))
         {
-            resetBallVelocity();
+            //resetBallVelocity();
             ballRigidBody.useGravity = false;
             Vector3 fanToBallVector = Vector3.Normalize(ballRigidBody.position - transform.position);
-            ballRigidBody.AddForceAtPosition(fanToBallVector * 5, transform.position);
+            //fanToBallVector.x *= 2;
+            ballRigidBody.AddForceAtPosition(fanToBallVector * 10, transform.position);
         }
         else
             ballRigidBody.useGravity = true;
@@ -58,8 +59,10 @@ public class fanController : MonoBehaviour
         if (ballRigidBody.velocity.y > 0)
             return;
 
-        Vector3 velocity = ballRigidBody.velocity;
+        /*Vector3 velocity = ballRigidBody.velocity;
         velocity.y = 0;
-        ballRigidBody.velocity = velocity;
+        ballRigidBody.velocity = velocity;*/
+
+        ballRigidBody.velocity = Vector3.zero;
     }
 }
