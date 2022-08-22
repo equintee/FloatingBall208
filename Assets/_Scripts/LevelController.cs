@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
+    public float touchSensivity;
     public float movementSpeed;
-
+    public Vector2 blowPower;
 }
