@@ -18,13 +18,8 @@ public class fanController : MonoBehaviour
         touchSensivity = levelController.touchSensivity;
         blowPower = levelController.blowPower;
         movementSpeed = levelController.movementSpeed;
-
+        ballToFanLayerMask = LayerMask.GetMask("Default", "Fan");
     }
-    void Start()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         moveFanAndPlayer();
@@ -66,7 +61,7 @@ public class fanController : MonoBehaviour
 
         }
         
-        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit a, 5f, 6))
+        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit a, 5f, ballToFanLayerMask))
         {
             Vector3 velocity = calculateVelocity();
             ballRigidBody.AddForceAtPosition(velocity * 3, transform.position);
