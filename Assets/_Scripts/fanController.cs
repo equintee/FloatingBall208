@@ -52,6 +52,9 @@ public class fanController : MonoBehaviour
     
     private void blowAir()
     {
+        if (Input.touchCount == 0)
+            return;
+
         if(ballRigidBody.position.y > 5 && ballRigidBody.velocity.y > 0)
         {
             Vector3 velocity = ballRigidBody.velocity;
