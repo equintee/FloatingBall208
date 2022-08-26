@@ -1,3 +1,4 @@
+using PathCreation;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,10 @@ public class fanController : MonoBehaviour
     private float touchSensivity;
     private Vector3 blowPower;
     private float movementSpeed;
-    private int ballToFanLayerMask;
+    private int raycastLayer;
+    private int obsticleLayer;
+    private PathCreator pathCreator;
+    private float distanceTravelled = 0f;
     private void Awake()
     {
         LevelController levelController = FindObjectOfType<LevelController>();
@@ -18,7 +22,9 @@ public class fanController : MonoBehaviour
         touchSensivity = levelController.touchSensivity;
         blowPower = levelController.blowPower;
         movementSpeed = levelController.movementSpeed;
-        ballToFanLayerMask = LayerMask.GetMask("Default", "Fan");
+        raycastLayer = LayerMask.GetMask("Default", "Fan", "obsticle");
+        obsticleLayer = LayerMask.NameToLayer("obsticle");
+        pathCreator = FindObjectOfType<PathCreator>();
     }
     private void FixedUpdate()
     {
@@ -29,11 +35,12 @@ public class fanController : MonoBehaviour
 
     private void moveFanAndPlayer()
     {
-        Vector3 destination = ballRigidBody.position;
-        destination.z += movementSpeed * Time.fixedDeltaTime;
-
+        distanceTravelled += movementSpeed * Time.fixedDeltaTime;
+        Vector3 destination = pathCreator.path.GetPointAtDistance(distanceTravelled);
+        transform.position = Vector3.Scale(destination, transform.forward) + Vector3.Scale(transform.position, transform.right);
+        destination.y = ballRigidBody.position.y;
         ballRigidBody.MovePosition(destination);
-        transform.Translate(new Vector3(0, 0, movementSpeed * Time.fixedDeltaTime));
+
     }
 
     private void fanMovement()
@@ -64,8 +71,12 @@ public class fanController : MonoBehaviour
 
         }
         
-        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit a, 5f, ballToFanLayerMask))
+        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit hit, 5f, raycastLayer))
         {
+            //engel??????????????????
+            if (hit.transform.gameObject.layer == obsticleLayer)
+                return;
+
             Vector3 velocity = calculateVelocity();
             ballRigidBody.AddForceAtPosition(velocity * 3, transform.position);
         }
