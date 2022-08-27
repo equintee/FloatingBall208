@@ -16,12 +16,8 @@ public class LevelController : MonoBehaviour
         //Cinemachine animator
 
         GameObject ball = GameObject.FindGameObjectWithTag("Ball");
-        GameObject hoop = GameObject.FindGameObjectWithTag("Hoop");
 
-        ball.GetComponent<Rigidbody>().isKinematic = true;
-
-        ball.transform.DOMoveZ(hoop.transform.position.z, 1f).SetEase(Ease.Linear);
-        await ball.transform.DOMoveY(hoop.transform.position.y + 0.5f, 1f).SetEase(Ease.InQuint).AsyncWaitForCompletion();
+        await ball.transform.DOMoveZ(ball.transform.position.z + 1f, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
         Debug.Log("ASD");
 
 

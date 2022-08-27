@@ -6,6 +6,7 @@ using UnityEngine;
 public class fanController : MonoBehaviour
 {
     public GameObject ball;
+    public GameObject gunModel;
 
     private Rigidbody ballRigidBody;
     private float touchSensivity;
@@ -15,10 +16,14 @@ public class fanController : MonoBehaviour
     private int obsticleLayer;
     private PathCreator pathCreator;
     private float distanceTravelled = 0f;
+    private float initialHeight;
     private void Awake()
     {
         LevelController levelController = FindObjectOfType<LevelController>();
+
         ballRigidBody = ball.GetComponent<Rigidbody>();
+        initialHeight = transform.position.y;
+
         touchSensivity = levelController.touchSensivity;
         blowPower = levelController.blowPower;
         movementSpeed = levelController.movementSpeed;
@@ -36,10 +41,11 @@ public class fanController : MonoBehaviour
     private void moveFanAndPlayer()
     {
         distanceTravelled += movementSpeed * Time.fixedDeltaTime;
-        Vector3 destination = pathCreator.path.GetPointAtDistance(distanceTravelled);
-        transform.position = Vector3.Scale(destination, transform.forward) + Vector3.Scale(transform.position, transform.right);
-        ballRigidBody.MovePosition(Vector3.Scale(destination, transform.forward) + Vector3.Scale(ballRigidBody.position, Vector3.right) + Vector3.Scale(ballRigidBody.position, Vector3.up));
+        Vector3 destination = pathCreator.path.GetPointAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
+        destination.y = initialHeight;
 
+        transform.position = destination;
+        transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
     }
 
     private void fanMovement()
@@ -49,9 +55,9 @@ public class fanController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved)
             {
-                Vector3 movement = new Vector3(touch.deltaPosition.x * Time.fixedDeltaTime * touchSensivity, 0, 0);
-                if (Physics.Raycast(transform.position + movement, Vector3.down))
-                    transform.Translate(movement);
+                Vector3 movement = new Vector3(0, touch.deltaPosition.x * Time.fixedDeltaTime * touchSensivity * -1, 0);
+                gunModel.transform.Translate(movement);
+                
             }
         }
     }
@@ -61,7 +67,7 @@ public class fanController : MonoBehaviour
         if (Input.touchCount == 0)
             return;
 
-        if(ballRigidBody.position.y > 5 && ballRigidBody.velocity.y > 0)
+        if(ballRigidBody.position.y > initialHeight + 5 && ballRigidBody.velocity.y > 0)
         {
             Vector3 velocity = ballRigidBody.velocity;
             velocity.y -= 5 * Time.fixedDeltaTime;
