@@ -38,8 +38,7 @@ public class fanController : MonoBehaviour
         distanceTravelled += movementSpeed * Time.fixedDeltaTime;
         Vector3 destination = pathCreator.path.GetPointAtDistance(distanceTravelled);
         transform.position = Vector3.Scale(destination, transform.forward) + Vector3.Scale(transform.position, transform.right);
-        destination.y = ballRigidBody.position.y;
-        ballRigidBody.MovePosition(destination);
+        ballRigidBody.MovePosition(Vector3.Scale(destination, transform.forward) + Vector3.Scale(ballRigidBody.position, Vector3.right) + Vector3.Scale(ballRigidBody.position, Vector3.up));
 
     }
 
@@ -82,7 +81,7 @@ public class fanController : MonoBehaviour
         }
     }
 
-    private Vector3 calculateVelocity()
+    /*private Vector3 calculateVelocity()
     {
         Vector3 velocity = Vector3.Normalize(ballRigidBody.position - transform.position);
         velocity.z = 0;
@@ -97,6 +96,23 @@ public class fanController : MonoBehaviour
         
         return velocity;
         
+
+    }*/
+
+    private Vector3 calculateVelocity()
+    {
+        Vector3 velocity = Vector3.Normalize(ballRigidBody.position - transform.position);
+        velocity.z = 0;
+        velocity.x *= blowPower.x;
+        velocity.y *= blowPower.y;
+
+        if (ballRigidBody.velocity.y < 0)
+            velocity.y -= ballRigidBody.velocity.y;
+
+        if ((ballRigidBody.position.x > 0 && transform.position.x > 0) || (ballRigidBody.position.x < 0 && transform.position.x < 0))
+            velocity.x *= 2;
+
+        return velocity;
 
     }
 }
