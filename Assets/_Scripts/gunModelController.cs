@@ -6,7 +6,7 @@ using Cinemachine;
 
 public class gunModelController : MonoBehaviour
 {
-    private async void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Trap"))
             return;
