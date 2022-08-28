@@ -1,6 +1,7 @@
 using PathCreation;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class fanController : MonoBehaviour
@@ -107,4 +108,6 @@ public class fanController : MonoBehaviour
         Vector3 verticalForce = new Vector3(0, blowPower.y, 0);
         return horizantalForce + verticalForce;
     }
+
+
 }

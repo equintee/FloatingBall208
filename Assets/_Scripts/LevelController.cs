@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Cinemachine;
+using System.Threading.Tasks;
 
 public class LevelController : MonoBehaviour
 {
@@ -10,16 +12,28 @@ public class LevelController : MonoBehaviour
     public Vector2 blowPower;
 
 
-    public async void endGame()
+    public async void endGame(bool playerWin)
     {
         disableScripts();
         //Cinemachine animator
+        if (playerWin)
+        {
+            GameObject ball = GameObject.FindGameObjectWithTag("Ball");
+            await ball.transform.DOMoveZ(ball.transform.position.z + 1f, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+            Debug.Log("ASD");
+        }
+        else
+        {
+            GameObject fan = GameObject.FindGameObjectWithTag("Fan");
 
-        GameObject ball = GameObject.FindGameObjectWithTag("Ball");
+            fan.GetComponent<Rigidbody>().isKinematic = false;
 
-        await ball.transform.DOMoveZ(ball.transform.position.z + 1f, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
-        Debug.Log("ASD");
+            FindObjectOfType<CinemachineStateDrivenCamera>().LiveChild.Follow = null;
+            FindObjectOfType<CinemachineStateDrivenCamera>().LiveChild.LookAt = null;
 
+            await Task.Delay(System.TimeSpan.FromSeconds(1f));
+            Debug.Log("lose");
+        }
 
     }
 
@@ -29,4 +43,5 @@ public class LevelController : MonoBehaviour
         foreach (MonoBehaviour script in FindObjectsOfType<MonoBehaviour>())
             script.enabled = false;
     }
+
 }

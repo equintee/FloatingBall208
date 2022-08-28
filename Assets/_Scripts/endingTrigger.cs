@@ -8,7 +8,7 @@ public class endingTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GetComponent<BoxCollider>().enabled = false;
-        FindObjectOfType<LevelController>().endGame();
+        FindObjectOfType<LevelController>().endGame(true);
         return;
     }
 }
