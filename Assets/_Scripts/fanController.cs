@@ -13,7 +13,7 @@ public class fanController : MonoBehaviour
     private float touchSensivity;
     private Vector3 blowPower;
     private float movementSpeed;
-    private int playerLayer;
+    private int platformLayer;
     private int fanLayer;
     private PathCreator pathCreator;
     private float distanceTravelled = 0f;
@@ -28,7 +28,7 @@ public class fanController : MonoBehaviour
         touchSensivity = levelController.touchSensivity;
         blowPower = levelController.blowPower;
         movementSpeed = levelController.movementSpeed;
-        playerLayer = LayerMask.GetMask("Platform");
+        platformLayer = LayerMask.GetMask("Platform");
         fanLayer = LayerMask.GetMask("Fan");
         pathCreator = FindObjectOfType<PathCreator>();
     }
@@ -69,7 +69,7 @@ public class fanController : MonoBehaviour
             if (touch.phase == TouchPhase.Moved)
             {
                 Vector3 movement = new Vector3(touch.deltaPosition.x * Time.fixedDeltaTime * touchSensivity * -1, 0, 0);
-                if(Physics.Raycast(gunModel.transform.position, Vector3.down, 3f, playerLayer))
+                if(Physics.Raycast(gunModel.transform.position, Vector3.down, 3f, platformLayer))
                     gunModel.transform.localPosition += movement;
             }
         }
@@ -87,9 +87,12 @@ public class fanController : MonoBehaviour
             ballRigidBody.velocity = velocity;
             return;
         }
-        
-        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit hit, 2.5f, fanLayer))
+
+        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit hit, 2.5f, fanLayer) || ballRigidBody.SweepTest(Vector3.down, out hit, 2.5f))
         {
+            if (!hit.transform.CompareTag("Fan"))
+                return;
+
             if(ballRigidBody.velocity.y < 0)
             {
                 Vector3 ballVelocity = ballRigidBody.velocity;
