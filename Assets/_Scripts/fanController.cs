@@ -67,7 +67,7 @@ public class fanController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved)
             {
-                Vector3 movement = new Vector3(0, touch.deltaPosition.x * Time.fixedDeltaTime * touchSensivity * -1, 0);
+                Vector3 movement = new Vector3(touch.deltaPosition.x * Time.fixedDeltaTime * touchSensivity * -1, 0, 0);
                 if(Physics.Raycast(gunModel.transform.position, Vector3.down, 3f, playerLayer))
                     gunModel.transform.localPosition += movement;
             }
