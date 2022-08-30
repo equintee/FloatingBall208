@@ -43,6 +43,7 @@ public class fanController : MonoBehaviour
     {
         distanceTravelled += movementSpeed * Time.fixedDeltaTime;
         Vector3 destination = pathCreator.path.GetPointAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
+
         destination.y = initialHeight;
 
         ballRigidBody.velocity = Vector3.Scale(ballRigidBody.velocity, transform.right) + new Vector3(0, ballRigidBody.velocity.y, 0);
