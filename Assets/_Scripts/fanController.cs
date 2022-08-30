@@ -37,6 +37,23 @@ public class fanController : MonoBehaviour
         moveFanAndPlayer();
         fanMovement();
         blowAir();
+        checkIfGameFinished();
+    }
+
+    private void checkIfGameFinished()
+    {
+        if(pathCreator.path.GetClosestTimeOnPath(transform.position) == 1f)
+        {
+            FindObjectOfType<LevelController>().endGame(true);
+            return;
+        }
+
+        if(ballRigidBody.transform.position.y < initialHeight - 4f)
+        {
+            FindObjectOfType<LevelController>().endGame(false);
+            return;
+        }
+            
     }
 
     private void moveFanAndPlayer()
@@ -51,14 +68,13 @@ public class fanController : MonoBehaviour
         transform.position = destination;
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
 
-        if (ballRigidBody.velocity.y > 0 && ballRigidBody.position.y > initialHeight + 2)
+        if (ballRigidBody.velocity.y > 0 && ballRigidBody.position.y > initialHeight + 8)
         {
             Vector3 velocity = ballRigidBody.velocity;
             velocity.y *= 0.5f;
             ballRigidBody.velocity = velocity;
         }
-            
-            
+
     }
 
     private void fanMovement()
@@ -80,7 +96,7 @@ public class fanController : MonoBehaviour
         if (Input.touchCount == 0)
             return;
 
-        if(ballRigidBody.position.y > initialHeight + 5 && ballRigidBody.velocity.y > 0)
+        if(ballRigidBody.position.y > initialHeight + 8 && ballRigidBody.velocity.y > 0)
         {
             Vector3 velocity = ballRigidBody.velocity;
             velocity.y -= 5 * Time.fixedDeltaTime;
@@ -109,6 +125,13 @@ public class fanController : MonoBehaviour
     {
         Vector3 force = Vector3.one;
         Vector3 horizantalForce = Vector3.Normalize(ballRigidBody.position - gunModel.transform.position) * blowPower.x;
+        horizantalForce = Vector3.Scale(horizantalForce, gunModel.transform.right * -1);
+
+        Vector3 ballRigidBodyVelocity = Vector3.Scale(ballRigidBody.velocity, gunModel.transform.right);
+
+        if ((ballRigidBodyVelocity.x > 0 && gunModel.transform.localPosition.x > ballRigidBody.transform.localPosition.x) || (ballRigidBodyVelocity.x < 0 && gunModel.transform.localPosition.x < ballRigidBody.transform.localPosition.x))
+            horizantalForce *= 2;
+        
         Vector3 verticalForce = new Vector3(0, blowPower.y, 0);
         return horizantalForce + verticalForce;
     }

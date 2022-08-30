@@ -20,7 +20,7 @@ public class LevelController : MonoBehaviour
         {
             GameObject ball = GameObject.FindGameObjectWithTag("Ball");
             await ball.transform.DOMoveZ(ball.transform.position.z + 1f, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
-            Debug.Log("ASD");
+            Debug.Log("win");
         }
         else
         {
