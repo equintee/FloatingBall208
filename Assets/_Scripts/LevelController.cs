@@ -18,9 +18,13 @@ public class LevelController : MonoBehaviour
         //Cinemachine animator
         if (playerWin)
         {
-            GameObject ball = GameObject.FindGameObjectWithTag("Ball");
-            await ball.transform.DOMoveZ(ball.transform.position.z + 1f, 1f).SetEase(Ease.Linear).AsyncWaitForCompletion();
-            Debug.Log("win");
+            Transform ballTransform = FindObjectOfType<fanController>().ball.transform;
+            Transform hole = GameObject.Find("Hole1").transform;
+
+            ballTransform.DOMoveX(hole.position.x, 1f).SetEase(Ease.Linear);
+            ballTransform.DOMoveZ(hole.position.z, 1f).SetEase(Ease.Linear);
+            await ballTransform.DOMoveY(hole.position.y, 1f).SetEase(Ease.InQuad).AsyncWaitForCompletion();
+            
         }
         else
         {
