@@ -1,3 +1,4 @@
+using DG.Tweening;
 using PathCreation;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ public class fanController : MonoBehaviour
 {
     public GameObject ball;
     public GameObject gunModel;
+    public GameObject particle;
 
     private Rigidbody ballRigidBody;
     private float touchSensivity;
@@ -55,7 +57,7 @@ public class fanController : MonoBehaviour
         }
             
     }
-
+    
     private void moveFanAndPlayer()
     {
         distanceTravelled += movementSpeed * Time.fixedDeltaTime;
@@ -84,7 +86,7 @@ public class fanController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Moved)
             {
-                Vector3 movement = new Vector3(touch.deltaPosition.x * Time.fixedDeltaTime * touchSensivity * -1, 0, 0);
+                Vector3 movement = new Vector3(touch.deltaPosition.x * touchSensivity * -1, 0, 0);
                 if(Physics.Raycast(gunModel.transform.position, Vector3.down, 3f, platformLayer))
                     gunModel.transform.localPosition += movement;
             }
@@ -95,6 +97,20 @@ public class fanController : MonoBehaviour
     {
         if (Input.touchCount == 0)
             return;
+
+        if(Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            DOTween.Kill(particle.transform);
+            particle.transform.localScale = new Vector3(5, 5, 2);
+            particle.transform.DOScale(new Vector3(5,5,8), 0.5f).SetEase(Ease.OutQuart);
+            particle.transform.GetComponent<ParticleSystem>().Play();
+        }
+        else if(Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            DOTween.Kill(particle.transform); 
+            particle.transform.GetComponent<ParticleSystem>().Stop();
+            particle.transform.GetComponent<ParticleSystem>().Clear();
+        }
 
         if(ballRigidBody.position.y > initialHeight + 8 && ballRigidBody.velocity.y > 0)
         {
