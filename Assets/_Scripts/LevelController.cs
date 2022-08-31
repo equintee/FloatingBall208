@@ -44,7 +44,7 @@ public class LevelController : MonoBehaviour
 
     private void disableScripts()
     {
-        foreach (MonoBehaviour script in FindObjectsOfType<MonoBehaviour>())
+        foreach (MonoBehaviour script in FindObjectsOfType<fanController>())
             script.enabled = false;
     }
 
