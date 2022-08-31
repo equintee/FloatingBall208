@@ -25,7 +25,7 @@ public class fanController : MonoBehaviour
         LevelController levelController = FindObjectOfType<LevelController>();
 
         ballRigidBody = ball.GetComponent<Rigidbody>();
-        initialHeight = transform.position.y;
+
 
         touchSensivity = levelController.touchSensivity;
         blowPower = levelController.blowPower;
@@ -33,6 +33,9 @@ public class fanController : MonoBehaviour
         platformLayer = LayerMask.GetMask("Platform");
         fanLayer = LayerMask.GetMask("Fan");
         pathCreator = FindObjectOfType<PathCreator>();
+
+        transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
+        initialHeight = transform.position.y;
     }
     private void FixedUpdate()
     {
@@ -96,20 +99,19 @@ public class fanController : MonoBehaviour
     private void blowAir()
     {
         if (Input.touchCount == 0)
+        {
+            DOTween.Kill(particle.transform);
+            particle.transform.GetComponent<ParticleSystem>().Stop();
+            particle.transform.GetComponent<ParticleSystem>().Clear();
             return;
+        }
 
-        if(Input.GetTouch(0).phase == TouchPhase.Began)
+        if(particle.GetComponent<ParticleSystem>().isPlaying == false)
         {
             DOTween.Kill(particle.transform);
             particle.transform.localScale = new Vector3(5, 5, 2);
             particle.transform.DOScale(new Vector3(5,5,8), 0.5f).SetEase(Ease.OutQuart);
             particle.transform.GetComponent<ParticleSystem>().Play();
-        }
-        else if(Input.GetTouch(0).phase == TouchPhase.Ended)
-        {
-            DOTween.Kill(particle.transform); 
-            particle.transform.GetComponent<ParticleSystem>().Stop();
-            particle.transform.GetComponent<ParticleSystem>().Clear();
         }
 
         if(ballRigidBody.position.y > initialHeight + 8 && ballRigidBody.velocity.y > 0)

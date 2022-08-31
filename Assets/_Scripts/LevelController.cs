@@ -11,10 +11,25 @@ public class LevelController : MonoBehaviour
     public float movementSpeed;
     public Vector2 blowPower;
 
-
+    private void Awake()
+    {
+        changeScriptBehaviour(false);
+        FindObjectOfType<fanController>().ball.GetComponent<Rigidbody>().isKinematic = true;
+    }
+    private void Update()
+    {
+        if(Input.touchCount > 0)
+        {
+            changeScriptBehaviour(true);
+            FindObjectOfType<fanController>().ball.GetComponent<Rigidbody>().isKinematic = false;
+            this.enabled = false;
+        }
+    }
     public async void endGame(bool playerWin)
     {
-        disableScripts();
+        changeScriptBehaviour(false);
+        FindObjectOfType<fanController>().particle.GetComponent<ParticleSystem>().Stop();
+        FindObjectOfType<fanController>().particle.GetComponent<ParticleSystem>().Clear();
         //Cinemachine animator
         if (playerWin)
         {
@@ -42,10 +57,10 @@ public class LevelController : MonoBehaviour
     }
 
 
-    private void disableScripts()
+    private void changeScriptBehaviour(bool value)
     {
         foreach (MonoBehaviour script in FindObjectsOfType<fanController>())
-            script.enabled = false;
+            script.enabled = value;
     }
 
 }
