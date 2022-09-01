@@ -55,6 +55,7 @@ public class LevelController : MonoBehaviour
             Debug.Log("lose");
         }
 
+        await Task.Delay(System.TimeSpan.FromSeconds(0.5f));
         changeSceneButton.SetActive(true);
     }
 

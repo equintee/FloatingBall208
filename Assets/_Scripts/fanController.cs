@@ -54,7 +54,7 @@ public class fanController : MonoBehaviour
             return;
         }
 
-        if(ballRigidBody.transform.position.y < initialHeight - 4f)
+        if(ballRigidBody.transform.position.y < getMaxHeight() - 4f)
         {
             FindObjectOfType<LevelController>().endGame(false);
             return;
@@ -76,7 +76,7 @@ public class fanController : MonoBehaviour
         rotation.z = 0;
         transform.rotation = rotation; 
 
-        if (ballRigidBody.velocity.y > 0 && ballRigidBody.position.y > initialHeight + 5)
+        if (ballRigidBody.velocity.y > 0 && ballRigidBody.position.y > getMaxHeight())
         {
             Vector3 velocity = ballRigidBody.velocity;
             velocity.y *= 0.5f;
@@ -144,17 +144,18 @@ public class fanController : MonoBehaviour
 
     private Vector3 calculateForce()
     {
-        Vector3 force = Vector3.one;
+        
         Vector3 horizantalForce = Vector3.Normalize(ballRigidBody.position - gunModel.transform.position) * blowPower.x;
-        horizantalForce = Vector3.Scale(horizantalForce, gunModel.transform.right * -1);
 
-        Vector3 ballRigidBodyVelocity = Vector3.Scale(ballRigidBody.velocity, gunModel.transform.right);
+        Vector3 ballRigidBodyVelocity = transform.InverseTransformDirection(ballRigidBody.velocity);
 
         if ((ballRigidBodyVelocity.x > 0 && gunModel.transform.localPosition.x > ballRigidBody.transform.localPosition.x) || (ballRigidBodyVelocity.x < 0 && gunModel.transform.localPosition.x < ballRigidBody.transform.localPosition.x))
             horizantalForce *= 2;
         
         Vector3 verticalForce = gunModel.transform.position.y > getMaxHeight() ? Vector3.zero : new Vector3(0, blowPower.y, 0);
-        return transform.InverseTransformDirection(horizantalForce + verticalForce);
+        Vector3 velocity = transform.InverseTransformDirection(horizantalForce + verticalForce);
+        velocity.z = 0;
+        return velocity;
     }
 
     private float getMaxHeight()
