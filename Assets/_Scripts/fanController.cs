@@ -10,6 +10,7 @@ public class fanController : MonoBehaviour
     public GameObject ball;
     public GameObject gunModel;
     public GameObject particle;
+    public float maximumHeight;
 
     private Rigidbody ballRigidBody;
     private float touchSensivity;
@@ -66,14 +67,16 @@ public class fanController : MonoBehaviour
         distanceTravelled += movementSpeed * Time.fixedDeltaTime;
         Vector3 destination = pathCreator.path.GetPointAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
 
-        destination.y = initialHeight;
 
         ballRigidBody.velocity = Vector3.Scale(ballRigidBody.velocity, transform.right) + new Vector3(0, ballRigidBody.velocity.y, 0);
 
         transform.position = destination;
-        transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
+        Quaternion rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
+        rotation.x = 0;
+        rotation.z = 0;
+        transform.rotation = rotation; 
 
-        if (ballRigidBody.velocity.y > 0 && ballRigidBody.position.y > initialHeight + 8)
+        if (ballRigidBody.velocity.y > 0 && ballRigidBody.position.y > initialHeight + 5)
         {
             Vector3 velocity = ballRigidBody.velocity;
             velocity.y *= 0.5f;
@@ -90,7 +93,7 @@ public class fanController : MonoBehaviour
             if (touch.phase == TouchPhase.Moved)
             {
                 Vector3 movement = new Vector3(touch.deltaPosition.x * touchSensivity * -1, 0, 0);
-                if(Physics.Raycast(gunModel.transform.position, Vector3.down, 100f, platformLayer))
+                if(Physics.Raycast(gunModel.transform.position + movement, Vector3.down, 100f, platformLayer))
                     gunModel.transform.localPosition += movement;
             }
         }
@@ -114,7 +117,7 @@ public class fanController : MonoBehaviour
             particle.transform.GetComponent<ParticleSystem>().Play();
         }
 
-        if(ballRigidBody.position.y > initialHeight + 8 && ballRigidBody.velocity.y > 0)
+        if(ballRigidBody.position.y > getMaxHeight() && ballRigidBody.velocity.y > 0)
         {
             Vector3 velocity = ballRigidBody.velocity;
             velocity.y -= 5 * Time.fixedDeltaTime;
@@ -122,7 +125,7 @@ public class fanController : MonoBehaviour
             return;
         }
 
-        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit hit, 2.5f, fanLayer) || ballRigidBody.SweepTest(Vector3.down, out hit, 2.5f))
+        if (Physics.SphereCast(ballRigidBody.position, 1, Vector3.down, out RaycastHit hit, getMaxHeight(), fanLayer) || ballRigidBody.SweepTest(Vector3.down, out hit, 2.5f))
         {
             if (!hit.transform.CompareTag("Fan"))
                 return;
@@ -135,7 +138,7 @@ public class fanController : MonoBehaviour
             }
 
             Vector3 force = calculateForce();
-            ballRigidBody.AddForceAtPosition(force, gunModel.transform.position);
+            ballRigidBody.velocity += transform.TransformDirection(force * Time.fixedDeltaTime);
         }
     }
 
@@ -150,9 +153,12 @@ public class fanController : MonoBehaviour
         if ((ballRigidBodyVelocity.x > 0 && gunModel.transform.localPosition.x > ballRigidBody.transform.localPosition.x) || (ballRigidBodyVelocity.x < 0 && gunModel.transform.localPosition.x < ballRigidBody.transform.localPosition.x))
             horizantalForce *= 2;
         
-        Vector3 verticalForce = new Vector3(0, blowPower.y, 0);
-        return horizantalForce + verticalForce;
+        Vector3 verticalForce = gunModel.transform.position.y > getMaxHeight() ? Vector3.zero : new Vector3(0, blowPower.y, 0);
+        return transform.InverseTransformDirection(horizantalForce + verticalForce);
     }
 
-
+    private float getMaxHeight()
+    {
+        return gunModel.transform.position.y + maximumHeight;
+    }
 }

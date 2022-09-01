@@ -13,4 +13,10 @@ public class gunModelController : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
         FindObjectOfType<LevelController>().endGame(false);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        collision.collider.enabled = false;
+        FindObjectOfType<LevelController>().endGame(false);
+    }
 }

@@ -4,13 +4,14 @@ using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
     public float touchSensivity;
     public float movementSpeed;
     public Vector2 blowPower;
-
+    public GameObject changeSceneButton;
     private void Awake()
     {
         changeScriptBehaviour(false);
@@ -54,6 +55,7 @@ public class LevelController : MonoBehaviour
             Debug.Log("lose");
         }
 
+        changeSceneButton.SetActive(true);
     }
 
 
@@ -63,4 +65,11 @@ public class LevelController : MonoBehaviour
             script.enabled = value;
     }
 
+    public void changeScene()
+    {
+        int level = SceneManager.GetActiveScene().buildIndex;
+        level++;
+        level %= SceneManager.sceneCountInBuildSettings;
+        SceneManager.LoadScene(level);
+    }
 }
