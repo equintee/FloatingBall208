@@ -20,7 +20,6 @@ public class fanController : MonoBehaviour
     private int fanLayer;
     private PathCreator pathCreator;
     private float distanceTravelled = 0f;
-    private float initialHeight;
     private void Awake()
     {
         LevelController levelController = FindObjectOfType<LevelController>();
@@ -36,7 +35,6 @@ public class fanController : MonoBehaviour
         pathCreator = FindObjectOfType<PathCreator>();
 
         transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
-        initialHeight = transform.position.y;
     }
     private void FixedUpdate()
     {
