@@ -1405,23 +1405,29 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: -11.5, y: 5, z: 17}
-      - {x: -11.526772, y: 5, z: 13.256482}
-      - {x: -11.553543, y: 5, z: 6.936785}
-      - {x: -11.5, y: 5, z: 6.8838205}
-      - {x: -11.801722, y: 5, z: 1.2781348}
-      - {x: -3.8679059, y: 5, z: 1.8292994}
-      - {x: -3.0490582, y: 5, z: 1.8234968}
-      - {x: -3.0165675, y: 5, z: 1.8232665}
-      - {x: 8.344344, y: 5, z: 1.8493462}
+      - {x: -11.64019, y: 5, z: 17}
+      - {x: -11.64019, y: 5, z: 14.814866}
+      - {x: -11.64019, y: 5, z: 12.629732}
+      - {x: -11.64019, y: 5, z: 11.180736}
+      - {x: -11.64019, y: 5, z: 9.775231}
+      - {x: -12.0518675, y: 5, z: 6.880002}
+      - {x: -11.640189, y: 5, z: 5.5361414}
+      - {x: -11.360283, y: 5, z: 4.6224318}
+      - {x: -10.319682, y: 5, z: 2.8319633}
+      - {x: -9.490554, y: 5, z: 2.3568225}
+      - {x: -8.096032, y: 5, z: 1.5576768}
+      - {x: -4.655221, y: 5, z: 2.000611}
+      - {x: -3.0490582, y: 5, z: 1.9408922}
+      - {x: -0.08252478, y: 5, z: 1.8305931}
+      - {x: 6.583149, y: 5, z: 3.71344}
       - {x: 8.872385, y: 5, z: 1.8234968}
-      - {x: 13.551224, y: 5, z: 1.0223846}
-      - {x: 12.241135, y: 5, z: -6.4223347}
-      - {x: 12.058222, y: 5, z: -9.038476}
+      - {x: 11.000648, y: 5, z: 0.06645012}
+      - {x: 11.039442, y: 5, z: -4.486013}
+      - {x: 11.078236, y: 5, z: -9.038476}
       isClosed: 0
       space: 0
-      controlMode: 0
-      autoControlLength: 0.01
+      controlMode: 3
+      autoControlLength: 0.249
       boundsUpToDate: 0
       bounds:
         m_Center: {x: 0.22254682, y: 3.9989555, z: 2.6569457}
@@ -1432,9 +1438,11 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+      - 0
+      - 0
       globalNormalsAngle: 90
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1
@@ -1447,7 +1455,7 @@ MonoBehaviour:
     keepConstantHandleSize: 0
     showNormalsInVertexMode: 0
     showBezierPathInVertexMode: 0
-    showDisplayOptions: 0
+    showDisplayOptions: 1
     showPathOptions: 1
     showVertexPathDisplayOptions: 0
     showVertexPathOptions: 1
@@ -3449,7 +3457,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.5625, y: 1}
+    m_SensorSize: {x: 0.75, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
