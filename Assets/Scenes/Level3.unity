@@ -2915,7 +2915,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394124559}
-  m_LocalRotation: {x: 0.2306861, y: 0.018665753, z: -0.0044261487, w: 0.9728391}
+  m_LocalRotation: {x: 0.2306861, y: 0.018665718, z: -0.0044261394, w: 0.9728391}
   m_LocalPosition: {x: 38.755985, y: -1.845685, z: -12.535604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3943,7 +3943,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851973770}
-  m_LocalRotation: {x: 0.2306861, y: 0.018665753, z: -0.0044261487, w: 0.9728391}
+  m_LocalRotation: {x: 0.2306861, y: 0.018665718, z: -0.0044261394, w: 0.9728391}
   m_LocalPosition: {x: 38.94, y: 5.79, z: -15.7300005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4288,14 +4288,14 @@ HingeJoint:
   m_GameObject: {fileID: 2048059011}
   m_ConnectedBody: {fileID: 1220506668}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.5109047, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
+  m_Anchor: {x: 0, y: 0.5109048, z: 0}
+  m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: -0.0000009834769, y: -0.27541158, z: -0.4400001}
-  m_UseSpring: 0
+  m_UseSpring: 1
   m_Spring:
-    spring: 0
-    damper: 0
+    spring: 100
+    damper: 20.48
     targetPosition: 0
   m_UseMotor: 0
   m_Motor:
