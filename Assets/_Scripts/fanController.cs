@@ -70,8 +70,6 @@ public class fanController : MonoBehaviour
 
         transform.position = destination;
         Quaternion rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
-        rotation.x = 0;
-        rotation.z = 0;
         transform.rotation = rotation; 
 
         if (ballRigidBody.velocity.y > 0 && ballRigidBody.position.y > getMaxHeight())
