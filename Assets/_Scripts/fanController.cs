@@ -20,6 +20,7 @@ public class fanController : MonoBehaviour
     private int fanLayer;
     private PathCreator pathCreator;
     private float distanceTravelled = 0f;
+    private Vector3 velocity;
     private void Awake()
     {
         LevelController levelController = FindObjectOfType<LevelController>();
@@ -33,6 +34,7 @@ public class fanController : MonoBehaviour
         platformLayer = LayerMask.GetMask("Platform");
         fanLayer = LayerMask.GetMask("Fan");
         pathCreator = FindObjectOfType<PathCreator>();
+        velocity = Vector3.zero;
 
         transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
     }
@@ -66,7 +68,9 @@ public class fanController : MonoBehaviour
         Vector3 destination = pathCreator.path.GetPointAtDistance(distanceTravelled, EndOfPathInstruction.Stop);
 
 
-        ballRigidBody.velocity = Vector3.Scale(ballRigidBody.velocity, transform.right) + new Vector3(0, ballRigidBody.velocity.y, 0);
+        velocity = transform.InverseTransformDirection(ballRigidBody.velocity);
+        velocity.z = 0;
+        ballRigidBody.velocity = transform.TransformDirection(velocity);
         
         if (ballRigidBody.position.y > getMaxHeight() && ballRigidBody.velocity.y > 0)
         {
