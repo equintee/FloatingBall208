@@ -47,7 +47,7 @@ public class LevelController : MonoBehaviour
             GameObject fan = GameObject.FindGameObjectWithTag("Fan");
 
             fan.GetComponent<Rigidbody>().isKinematic = false;
-
+            FindObjectOfType<fanController>().ball.GetComponent<Rigidbody>().useGravity = true;
             FindObjectOfType<CinemachineStateDrivenCamera>().LiveChild.Follow = null;
             FindObjectOfType<CinemachineStateDrivenCamera>().LiveChild.LookAt = null;
 
