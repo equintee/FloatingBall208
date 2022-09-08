@@ -5,13 +5,23 @@ using DG.Tweening;
 using Cinemachine;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
+[System.Serializable]
+public struct canvasList
+{
+    public GameObject tapToStart;
+    public GameObject levelCompleteUI;
+    public GameObject super;
+    public GameObject failUI;
+}
 public class LevelController : MonoBehaviour
 {
     public float touchSensivity;
     public float movementSpeed;
     public Vector2 blowPower;
-    public GameObject changeSceneButton;
+    public canvasList canvasList;
+
     private void Awake()
     {
         changeScriptBehaviour(false);
@@ -21,6 +31,7 @@ public class LevelController : MonoBehaviour
     {
         if(Input.touchCount > 0)
         {
+            canvasList.tapToStart.SetActive(false);
             changeScriptBehaviour(true);
             FindObjectOfType<fanController>().ball.GetComponent<Rigidbody>().isKinematic = false;
             this.enabled = false;
@@ -40,7 +51,11 @@ public class LevelController : MonoBehaviour
             ballTransform.DOMoveX(hole.position.x, 1f).SetEase(Ease.Linear);
             ballTransform.DOMoveZ(hole.position.z, 1f).SetEase(Ease.Linear);
             await ballTransform.DOMoveY(hole.position.y, 1f).SetEase(Ease.InQuad).AsyncWaitForCompletion();
-            
+            GameObject superImage = Instantiate(canvasList.super, hole.position + new Vector3(0,1,0), FindObjectOfType<fanController>().transform.rotation, null);
+            superImage.transform.DOMoveY(superImage.transform.position.y + 2f, 1f).SetEase(Ease.OutSine).OnComplete(() => Destroy(superImage));
+
+            await Task.Delay(System.TimeSpan.FromSeconds(0.5f));
+            canvasList.levelCompleteUI.SetActive(true);
         }
         else
         {
@@ -51,12 +66,10 @@ public class LevelController : MonoBehaviour
             FindObjectOfType<CinemachineStateDrivenCamera>().LiveChild.Follow = null;
             FindObjectOfType<CinemachineStateDrivenCamera>().LiveChild.LookAt = null;
 
-            await Task.Delay(System.TimeSpan.FromSeconds(1f));
-            Debug.Log("lose");
+            await Task.Delay(System.TimeSpan.FromSeconds(1.5f));
+            canvasList.failUI.SetActive(true);
         }
 
-        await Task.Delay(System.TimeSpan.FromSeconds(0.5f));
-        changeSceneButton.SetActive(true);
     }
 
 

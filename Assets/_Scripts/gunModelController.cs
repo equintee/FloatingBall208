@@ -14,7 +14,11 @@ public class gunModelController : MonoBehaviour
             FindObjectOfType<LevelController>().endGame(false);
         }
         else if (other.CompareTag("Goal"))
+        {
             FindObjectOfType<fanController>().win = true;
+            other.GetComponent<SpriteRenderer>().color = new Color32(0, 139, 255, 255);
+        }
+            
         
     }
 
