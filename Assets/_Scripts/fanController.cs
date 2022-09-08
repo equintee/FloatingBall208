@@ -11,6 +11,7 @@ public class fanController : MonoBehaviour
     public GameObject gunModel;
     public GameObject particle;
     public float maximumHeight;
+    [HideInInspector] public bool win = false;
 
     private Rigidbody ballRigidBody;
     private float touchSensivity;
@@ -50,7 +51,7 @@ public class fanController : MonoBehaviour
     {
         if(pathCreator.path.GetClosestTimeOnPath(transform.position) == 1f)
         {
-            FindObjectOfType<LevelController>().endGame(true);
+            FindObjectOfType<LevelController>().endGame(win);
             return;
         }
 
@@ -161,4 +162,5 @@ public class fanController : MonoBehaviour
     {
         return gunModel.transform.position.y + maximumHeight;
     }
+
 }

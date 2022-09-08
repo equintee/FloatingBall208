@@ -7,6 +7,7 @@ TagManager:
   - Ball
   - Fan
   - Trap
+  - Goal
   layers:
   - Default
   - TransparentFX
