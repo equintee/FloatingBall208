@@ -427,8 +427,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touchSensivity: 0.02
-  movementSpeed: 5
-  blowPower: {x: 7, y: 3}
+  movementSpeed: 7
+  blowPower: {x: 8, y: 3}
   canvasList:
     tapToStart: {fileID: 654439773}
     levelCompleteUI: {fileID: 886715395}
@@ -2404,6 +2404,71 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1001 &1120284739
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 248598988}
+    m_Modifications:
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.20000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.20000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 39.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 34.310112
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743070, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638772876068743071, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
+      propertyPath: m_Name
+      value: Flag Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4534fef56aaab8d4bae993ea0bb7598b, type: 3}
 --- !u!1001 &1177442045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2947,7 +3012,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394124559}
-  m_LocalRotation: {x: 0.2306861, y: 0.018665718, z: -0.0044261394, w: 0.9728391}
+  m_LocalRotation: {x: 0.2306861, y: 0.018665753, z: -0.0044261487, w: 0.9728391}
   m_LocalPosition: {x: 38.755985, y: -1.845685, z: -12.535604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4158,7 +4223,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851973770}
-  m_LocalRotation: {x: 0.2306861, y: 0.018665718, z: -0.0044261394, w: 0.9728391}
+  m_LocalRotation: {x: 0.2306861, y: 0.018665753, z: -0.0044261487, w: 0.9728391}
   m_LocalPosition: {x: 38.94, y: 5.79, z: -15.7300005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
