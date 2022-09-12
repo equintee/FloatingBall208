@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.3137255, g: 0.74509805, b: 0.99607843, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
@@ -733,7 +733,7 @@ PrefabInstance:
     - target: {fileID: -6042674567335330213, guid: a133a380f9966be48b41090199382bd4, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 16ccf7ee9785f2942b39b2dd6d66d7fc, type: 2}
+      objectReference: {fileID: 2100000, guid: 239d2774b90b1284db49c25306e1790d, type: 2}
     - target: {fileID: -5588673713773027346, guid: a133a380f9966be48b41090199382bd4, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -3012,7 +3012,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394124559}
-  m_LocalRotation: {x: 0.2306861, y: 0.018665753, z: -0.0044261487, w: 0.9728391}
+  m_LocalRotation: {x: 0.2306861, y: 0.018665718, z: -0.0044261394, w: 0.9728391}
   m_LocalPosition: {x: 38.755985, y: -1.845685, z: -12.535604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4223,7 +4223,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851973770}
-  m_LocalRotation: {x: 0.2306861, y: 0.018665753, z: -0.0044261487, w: 0.9728391}
+  m_LocalRotation: {x: 0.2306861, y: 0.018665718, z: -0.0044261394, w: 0.9728391}
   m_LocalPosition: {x: 38.94, y: 5.79, z: -15.7300005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4571,7 +4571,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.5109048, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000009834769, y: -0.27541158, z: -0.4400001}
+  m_ConnectedAnchor: {x: -0.0000009834769, y: -0.27547547, z: -0.4400001}
   m_UseSpring: 1
   m_Spring:
     spring: 100
